@@ -139,6 +139,11 @@ export default {
       return jsonResponse(row);
     }
 
+	if (request.method === "GET" && url.pathname === "/") {
+  		return new Response("ok", {headers: { "content-type": "text/plain" },
+	});
+}
+
     return new Response("Not found", { status: 404 });
   },
 } satisfies ExportedHandler<Env>;

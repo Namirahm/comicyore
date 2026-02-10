@@ -1,13 +1,19 @@
 {
 	"compatibility_date": "2025-10-08",
 	"main": "src/index.ts",
-	"name": "d1-template",
+	"name": "comic-yore-worker",
 	"upload_source_maps": true,
 	"d1_databases": [
 		{
 			"binding": "DB",
 			"database_id": "7c31f523-f15f-4675-8449-7af5d3926343",
 			"database_name": "d1-template-database"
+		},
+		{
+			"binding": "comic_db",
+			"database_name": "comic-db",
+			"database_id": "0fe75cd5-524a-413c-b956-e900bfdc5258",
+			"remote": true
 		}
 	],
 	"observability": {

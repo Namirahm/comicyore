@@ -5,7 +5,7 @@
 	"upload_source_maps": true,
 	"d1_databases": [
 		{
-			"binding": "comic_db",
+			"binding": "DB",
 			"database_name": "comic-db",
 			"database_id": "0fe75cd5-524a-413c-b956-e900bfdc5258",
 			"remote": true

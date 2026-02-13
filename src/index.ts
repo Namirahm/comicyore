@@ -515,6 +515,14 @@ export default {
       return new Response("ok", { headers: { "content-type": "text/plain" } });
     }
 
+    // GET /api/me
+    if (request.method === "GET" && url.pathname === "/api/me") {
+      const user = await requireUser(request, env);
+      if (!user) return jsonResponse({ authenticated: false }, 200);
+      return jsonResponse({ authenticated: true, user }, 200);
+    }
+
+
     return new Response("Not found", { status: 404 });
   },
 } satisfies ExportedHandler<Env>;

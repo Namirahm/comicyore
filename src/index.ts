@@ -1,5 +1,6 @@
 export interface Env {
   DB: D1Database;
+  BUCKET: R2Bucket;
 }
 
 type RefreshRequest = {
@@ -173,6 +174,13 @@ export default {
       const row = await env.DB.prepare("SELECT 1 AS ok").first();
       return jsonResponse(row);
     }
+
+    if (request.method === "GET" && url.pathname === "/debug-r2") {
+      const key = "publishers/kraken/chance-magic/issue-001/pages/p001.jpg";
+      const obj = await env.BUCKET.get(key);
+      return new Response(obj ? "FOUND" : "NOT FOUND", { status: 200 });
+    }
+
 
 	if (request.method === "GET" && url.pathname === "/") {
   		return new Response("ok", {headers: { "content-type": "text/plain" },

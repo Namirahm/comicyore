@@ -350,12 +350,21 @@ export default {
       }
 
       const repoRow = await env.DB.prepare(
-        `SELECT id, branch, manifest_path FROM repos WHERE github_owner = ? AND github_repo = ?`
-      )
+        `SELECT id, branch, manifest_path, owner_user_id FROM repos WHERE github_owner = ? AND github_repo = ?`)
         .bind(owner, repo)
-        .first<{ id: string; branch: string; manifest_path: string }>();
+        .first<{
+        id: string;
+        branch: string;
+        manifest_path: string;
+        owner_user_id: string | null;
+        }>();
 
-      if (!repoRow) return jsonResponse({ error: "Repo not registered in D1" }, 404);
+
+      if (!repoRow) 
+        return jsonResponse({ error: "Repo not registered in D1" }, 404);
+      
+      if (!repoRow.owner_user_id || repoRow.owner_user_id !== user.id) 
+        return new Response("Forbidden", { status: 403 });
 
       const branch = repoRow.branch || "main";
       const manifestPath = repoRow.manifest_path || "comicyore/manifest.json";
